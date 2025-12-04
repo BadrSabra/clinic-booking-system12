@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicPro | نظام إدارة العيادات المحترف</title>
+    
+    <!-- Meta Tags للـ SEO -->
+    <meta name="description" content="نظام إدارة متكامل للعيادات الطبية - إدارة الأطباء، المرضى، المواعيد، والتقارير">
+    <meta name="keywords" content="نظام عيادات, حجز مواعيد, إدارة عيادة, برنامج عيادة">
+    <meta name="author" content="ClinicPro Team">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="ClinicPro | نظام إدارة العيادات">
+    <meta property="og:description" content="الحل المتكامل لإدارة العيادات الطبية">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="assets/styles/responsive.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1E40AF">
+    
+    <!-- Apple PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ClinicPro">
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+</head>
+<body class="dark-mode">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>جاري تحميل النظام...</p>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- Main Layout -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-hospital-alt"></i>
+                    <div class="logo-text">
+                        <h2>Clinic<span class="logo-highlight">Pro</span></h2>
+                        <span class="logo-subtitle">Professional Clinic Management</span>
+                    </div>
+                </div>
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">القائمة الرئيسية</h3>
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="#dashboard" class="nav-link active">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span class="nav-text">لوحة التحكم</span>
+                                <span class="nav-badge" id="dashboardBadge">3</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#appointments" class="nav-link">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="nav-text">المواعيد</span>
+                                <span class="nav-badge badge-warning" id="pendingAppointments">5</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#patients" class="nav-link">
+                                <i class="fas fa-user-injured"></i>
+                                <span class="nav-text">المرضى</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#doctors" class="nav-link">
+                                <i class="fas fa-user-md"></i>
+                                <span class="nav-text">الأطباء</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#billing" class="nav-link">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                <span class="nav-text">الفواتير</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#inventory" class="nav-link">
+                                <i class="fas fa-pills"></i>
+                                <span class="nav-text">المخزون</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">التقارير والتحليلات</h3>
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="#reports" class="nav-link">
+                                <i class="fas fa-chart-bar"></i>
+                                <span class="nav-text">التقارير</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#analytics" class="nav-link">
+                                <i class="fas fa-chart-line"></i>
+                                <span class="nav-text">التحليلات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#export" class="nav-link">
+                                <i class="fas fa-file-export"></i>
+                                <span class="nav-text">تصدير البيانات</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">الإعدادات</h3>
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="#settings" class="nav-link">
+                                <i class="fas fa-cog"></i>
+                                <span class="nav-text">الإعدادات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#backup" class="nav-link">
+                                <i class="fas fa-database"></i>
+                                <span class="nav-text">النسخ الاحتياطي</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <img src="assets/images/avatar.png" alt="User Avatar">
+                    </div>
+                    <div class="user-info">
+                        <h4 class="user-name">د. أحمد محمد</h4>
+                        <span class="user-role">مدير النظام</span>
+                    </div>
+                    <button class="user-menu-btn" onclick="toggleUserMenu()">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="user-menu" id="userMenu">
+                    <a href="#profile"><i class="fas fa-user"></i> الملف الشخصي</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> الإعدادات</a>
+                    <div class="menu-divider"></div>
+                    <a href="#logout" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <div class="breadcrumb">
+                        <a href="#dashboard">لوحة التحكم</a>
+                        <i class="fas fa-chevron-left"></i>
+                        <span id="currentPage">الرئيسية</span>
+                    </div>
+                </div>
+                
+                <div class="top-bar-right">
+                    <div class="top-bar-actions">
+                        <!-- Search -->
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="بحث..." id="globalSearch">
+                            <div class="search-results" id="searchResults"></div>
+                        </div>
+                        
+                        <!-- Notifications -->
+                        <div class="notification-dropdown">
+                            <button class="notification-btn" onclick="toggleNotifications()">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-count" id="notificationCount">3</span>
+                            </button>
+                            <div class="notification-panel" id="notificationPanel">
+                                <div class="notification-header">
+                                    <h3>الإشعارات</h3>
+                                    <button class="mark-all-read" onclick="markAllAsRead()">
+                                        تعيين الكل كمقروء
+                                    </button>
+                                </div>
+                                <div class="notification-list">
+                                    <!-- Notifications will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Theme Toggle -->
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </button>
+                        
+                        <!-- Quick Actions -->
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" onclick="quickAdd('appointment')">
+                                <i class="fas fa-plus"></i> موعد سريع
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Dashboard -->
+                <section id="dashboard" class="page-section active">
+                    <div class="section-header">
+                        <h1 class="section-title">لوحة التحكم الرئيسية</h1>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" onclick="refreshDashboard()">
+                                <i class="fas fa-sync-alt"></i> تحديث
+                            </button>
+                            <div class="date-range-picker">
+                                <input type="date" id="startDate" value="2024-01-01">
+                                <span>إلى</span>
+                                <input type="date" id="endDate" value="2024-12-31">
+                                <button class="btn btn-outline" onclick="applyDateRange()">
+                                    تطبيق
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card stat-primary">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="totalAppointments">0</div>
+                                <div class="stat-label">إجمالي المواعيد</div>
+                                <div class="stat-change">
+                                    <span class="change-up">
+                                        <i class="fas fa-arrow-up"></i> 12% عن الشهر الماضي
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-success">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="activeDoctors">0</div>
+                                <div class="stat-label">أطباء نشطين</div>
+                                <div class="stat-change">
+                                    <span class="change-up">
+                                        <i class="fas fa-arrow-up"></i> 3 أطباء جدد
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-warning">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="totalPatients">0</div>
+                                <div class="stat-label">مرضى مسجلين</div>
+                                <div class="stat-change">
+                                    <span class="change-up">
+                                        <i class="fas fa-arrow-up"></i> 24 مريض جديد
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-info">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="monthlyRevenue">0 ر.س</div>
+                                <div class="stat-label">الإيرادات الشهرية</div>
+                                <div class="stat-change">
+                                    <span class="change-up">
+                                        <i class="fas fa-arrow-up"></i> 8% عن الشهر الماضي
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>المواعيد الشهرية</h3>
+                                <select class="chart-period" onchange="updateAppointmentsChart(this.value)">
+                                    <option value="monthly">شهري</option>
+                                    <option value="weekly">أسبوعي</option>
+                                    <option value="daily">يومي</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="appointmentsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>توزيع المرضى حسب العمر</h3>
+                                <select class="chart-period" onchange="updatePatientsChart(this.value)">
+                                    <option value="age">حسب العمر</option>
+                                    <option value="gender">حسب الجنس</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="patientsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="activity-section">
+                        <div class="section-header">
+                            <h3>النشاطات الأخيرة</h3>
+                            <button class="btn btn-outline" onclick="loadMoreActivities()">
+                                عرض المزيد
+                            </button>
+                        </div>
+                        <div class="activity-list" id="activityList">
+                            <!-- Activities will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Appointments -->
+                    <div class="appointments-section">
+                        <div class="section-header">
+                            <h3>المواعيد القادمة</h3>
+                            <div class="appointment-filters">
+                                <select class="filter-select" onchange="filterAppointments(this.value)">
+                                    <option value="today">اليوم</option>
+                                    <option value="week">هذا الأسبوع</option>
+                                    <option value="month">هذا الشهر</option>
+                                </select>
+                                <button class="btn btn-primary" onclick="openNewAppointmentModal()">
+                                    <i class="fas fa-plus"></i> موعد جديد
+                                </button>
+                            </div>
+                        </div>
+                        <div class="appointments-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>المريض</th>
+                                        <th>الطبيب</th>
+                                        <th>التاريخ والوقت</th>
+                                        <th>نوع الكشف</th>
+                                        <th>الحالة</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="upcomingAppointmentsTable">
+                                    <!-- Appointments will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Other sections (Appointments, Patients, Doctors, etc.) -->
+                <!-- Will be loaded dynamically -->
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 ClinicPro. جميع الحقوق محفوظة.</p>
+                        <p class="version">الإصدار 2.0.0 | آخر تحديث: 2024-01-15</p>
+                    </div>
+                    <div class="footer-right">
+                        <div class="system-status">
+                            <span class="status-indicator status-online"></span>
+                            <span>النظام يعمل</span>
+                            <span class="status-detail" id="systemStatusDetail">24/7</span>
+                        </div>
+                        <div class="footer-links">
+                            <a href="#privacy">الخصوصية</a>
+                            <a href="#terms">الشروط</a>
+                            <a href="#contact">اتصل بنا</a>
+                            <a href="#support">الدعم</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modal System -->
+    <div id="modalContainer" class="modal-container"></div>
+
+    <!-- Toast System -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Core Modules -->
+    <script src="assets/scripts/core/config.js"></script>
+    <script src="assets/scripts/core/database.js"></script>
+    <script src="assets/scripts/core/auth.js"></script>
+    <script src="assets/scripts/core/notifications.js"></script>
+    
+    <!-- Services -->
+    <script src="assets/scripts/services/doctors.service.js"></script>
+    <script src="assets/scripts/services/patients.service.js"></script>
+    <script src="assets/scripts/services/appointments.service.js"></script>
+    
+    <!-- UI Components -->
+    <script src="assets/scripts/ui/modal.js"></script>
+    <script src="assets/scripts/ui/toast.js"></script>
+    <script src="assets/scripts/ui/table.js"></script>
+    
+    <!-- Modules -->
+    <script src="assets/scripts/modules/dashboard.js"></script>
+    <script src="assets/scripts/modules/doctors.js"></script>
+    <script src="assets/scripts/modules/patients.js"></script>
+    <script src="assets/scripts/modules/appointments.js"></script>
+    
+    <!-- Main App -->
+    <script src="assets/scripts/app.js"></script>
+</body>
+</html>
